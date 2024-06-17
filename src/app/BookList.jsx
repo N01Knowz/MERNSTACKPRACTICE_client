@@ -8,20 +8,8 @@ const BookList = ({
   setEditSuccess,
   setDeleteSuccess,
   setLoadingSave,
+  csrfToken
 }) => {
-  const [csrfToken, setCsrfToken] = useState("");
-
-  useEffect(() => {
-    // Fetch the CSRF token from the server
-    axios
-      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/csrf-token`, { withCredentials: true })
-      .then((response) => {
-        setCsrfToken(response.data.csrfToken);
-      })
-      .catch((error) => {
-        console.error("Error fetching CSRF token:", error);
-      });
-  }, []);
   const formatDate = (timestamp) => {
     const date = new Date(timestamp);
     return date.toLocaleString("en-US", {

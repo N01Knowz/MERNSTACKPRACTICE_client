@@ -6,20 +6,6 @@ import BookList from "./BookList";
 import Layout from "./BookLayout";
 
 const BooksHome = () => {
-  const [csrfToken, setCsrfToken] = useState("");
-
-  useEffect(() => {
-    // Fetch the CSRF token from the server
-    axios
-      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/csrf-token`, { withCredentials: true })
-      .then((response) => {
-        setCsrfToken(response.data.csrfToken);
-      })
-      .catch((error) => {
-        console.error("Error fetching CSRF token:", error);
-      });
-  }, []);
-
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -56,6 +42,21 @@ const BooksHome = () => {
   const [deleteSuccess, setDeleteSuccess] = useState(false);
   const [saveError, setSaveError] = useState(false);
   const [saveErrorMessage, setSaveErrorMessage] = useState("false");
+  const [csrfToken, setCsrfToken] = useState("");
+
+  useEffect(() => {
+    // Fetch the CSRF token from the server
+    axios
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/csrf-token`, {
+        withCredentials: true,
+      })
+      .then((response) => {
+        setCsrfToken(response.data.csrfToken);
+      })
+      .catch((error) => {
+        console.error("Error fetching CSRF token:", error);
+      });
+  }, []);
 
   const handleSaveBook = async () => {
     // e.preventDefault();
@@ -206,6 +207,7 @@ const BooksHome = () => {
           setEditSuccess={setEditSuccess}
           setDeleteSuccess={setDeleteSuccess}
           setLoadingSave={setLoadingSave}
+          csrfToken={csrfToken}
         />
       )}
     </Layout>
