@@ -11,7 +11,7 @@ const BooksHome = () => {
   useEffect(() => {
     // Fetch the CSRF token from the server
     axios
-      .get("http://localhost:5555/csrf-token", { withCredentials: true })
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/csrf-token`, { withCredentials: true })
       .then((response) => {
         setCsrfToken(response.data.csrfToken);
       })
@@ -27,7 +27,7 @@ const BooksHome = () => {
   const fetchBooks = () => {
     setLoading(true);
     axios
-      .get("http://localhost:5555/books")
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/books`)
       .then((res) => {
         setBooks(res.data.data);
         setLoading(false);
@@ -69,12 +69,16 @@ const BooksHome = () => {
     setAuthor("");
     setPublishYear("");
     try {
-      const response = await axios.post("http://localhost:5555/books", data, {
-        headers: {
-          "csrf-token": csrfToken,
-        },
-        withCredentials: true,
-      });
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/books`,
+        data,
+        {
+          headers: {
+            "csrf-token": csrfToken,
+          },
+          withCredentials: true,
+        }
+      );
       setBooks(response.data.data);
       setSaveSuccess(true);
       fetchBooks();

@@ -14,7 +14,7 @@ const BookList = ({
   useEffect(() => {
     // Fetch the CSRF token from the server
     axios
-      .get("http://localhost:5555/csrf-token", { withCredentials: true })
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/csrf-token`, { withCredentials: true })
       .then((response) => {
         setCsrfToken(response.data.csrfToken);
       })
@@ -63,7 +63,7 @@ const BookList = ({
   const showBookDataAPI = (id, modal_name) => {
     setLoading(true);
     axios
-      .get(`http://localhost:5555/books/${id}`)
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/books/${id}`)
       .then((res) => {
         setBook(res.data);
         setLoading(false);
@@ -90,7 +90,7 @@ const BookList = ({
     };
     try {
       const response = await axios.put(
-        `http://localhost:5555/books/${book._id}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/books/${book._id}`,
         data,
         {
           headers: {
@@ -122,7 +122,7 @@ const BookList = ({
     setLoadingSave(true);
     try {
       const response = await axios.delete(
-        `http://localhost:5555/books/${book._id}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/books/${book._id}`,
         {
           headers: {
             "csrf-token": csrfToken,
