@@ -8,7 +8,7 @@ const BookList = ({
   setEditSuccess,
   setDeleteSuccess,
   setLoadingSave,
-  csrfToken
+  csrfToken,
 }) => {
   const formatDate = (timestamp) => {
     const date = new Date(timestamp);
@@ -266,24 +266,30 @@ const BookList = ({
 
       <dialog id="show_delete_modal" className="modal">
         <div className="modal-box">
-          <h3 className="font-bold text-lg">Delete Book</h3>
-          <p className="py-4 text-xl">
-            Are you sure you want to delete the book
-          </p>
-          <p className="text-2xl font-bold"> {book.title}</p>
-          <div className="modal-action">
-            <form method="dialog">
-              <button className="btn btn-error">Close</button>
-            </form>
-            <form method="dialog">
-              <button
-                className="btn btn-success"
-                onClick={() => handleDeleteBook()}
-              >
-                Delete Book
-              </button>
-            </form>
-          </div>
+          {loading ? (
+            <Loading />
+          ) : (
+            <>
+              <h3 className="font-bold text-lg">Delete Book</h3>
+              <p className="py-4 text-xl">
+                Are you sure you want to delete the book
+              </p>
+              <p className="text-2xl font-bold"> {book.title}</p>
+              <div className="modal-action">
+                <form method="dialog">
+                  <button className="btn btn-error">Close</button>
+                </form>
+                <form method="dialog">
+                  <button
+                    className="btn btn-success"
+                    onClick={() => handleDeleteBook()}
+                  >
+                    Delete Book
+                  </button>
+                </form>
+              </div>
+            </>
+          )}
         </div>
         <form method="dialog" className="modal-backdrop">
           <button>close</button>
