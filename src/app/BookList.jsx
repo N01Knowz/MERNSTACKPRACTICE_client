@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Loading from "@/components/Loading";
+import { FaEdit, FaEye, FaTrashAlt } from "react-icons/fa";
 
 const BookList = ({
   books,
@@ -305,10 +306,10 @@ const BookList = ({
               <th className="shadow-neutral shadow-sm bg-base-300 rounded-md text-xl py-4">
                 Title
               </th>
-              <th className="shadow-neutral shadow-sm bg-base-300 rounded-md text-xl py-4">
+              <th className="shadow-neutral shadow-sm bg-base-300 rounded-md text-xl py-4 hidden md:table-cell">
                 Author
               </th>
-              <th className="shadow-neutral shadow-sm bg-base-300 rounded-md text-xl py-4">
+              <th className="shadow-neutral shadow-sm bg-base-300 rounded-md text-xl py-4 hidden md:table-cell">
                 Publish Year
               </th>
               <th className="shadow-neutral shadow-sm bg-base-300 rounded-md text-xl py-4">
@@ -325,13 +326,13 @@ const BookList = ({
                 <td className="shadow-neutral shadow-sm bg-base-300 rounded-md">
                   {book.title}
                 </td>
-                <td className="shadow-neutral shadow-sm bg-base-300 rounded-md">
+                <td className="shadow-neutral shadow-sm bg-base-300 rounded-md hidden md:table-cell">
                   {book.author}
                 </td>
-                <td className="shadow-neutral shadow-sm bg-base-300 rounded-md">
+                <td className="shadow-neutral shadow-sm bg-base-300 rounded-md hidden md:table-cell">
                   {book.publishYear}
                 </td>
-                <td className="shadow-neutral shadow-sm bg-base-300 rounded-md w-72">
+                <td className="shadow-neutral shadow-sm bg-base-300 rounded-md md:w-72">
                   <div className="flex justify-center gap-4 p-2">
                     {/* Method 1: Local
                     <button
@@ -342,28 +343,31 @@ const BookList = ({
                     </button> */}
                     {/* Method 2: API */}
                     <button
-                      className="btn btn-info w-28"
+                      className="btn btn-info md:w-28"
                       onClick={() =>
                         showBookDataAPI(book._id, "show_book_modal")
                       }
                     >
-                      View
+                      <p className="hidden md:block">View</p>
+                      <FaEye className="md:hidden" />
                     </button>
                     <button
-                      className="btn btn-warning w-28"
+                      className="btn btn-warning md:w-28"
                       onClick={() =>
                         showBookDataAPI(book._id, "edit_book_modal")
                       }
                     >
-                      Edit
+                      <p className="hidden md:block">Edit</p>
+                      <FaEdit className="md:hidden" />
                     </button>
                     <button
-                      className="btn btn-error w-28"
+                      className="btn btn-error md:w-28"
                       onClick={() =>
                         showBookDataAPI(book._id, "show_delete_modal")
                       }
                     >
-                      Delete
+                      <p className="hidden md:block">Delete</p>
+                      <FaTrashAlt className="md:hidden" />
                     </button>
                   </div>
                 </td>
